@@ -4,6 +4,7 @@ Thumbs.db
 
 # Documentación y notas (no forman parte del demo desplegable)
 *.md
+!README.md
 uploads/
 
 # Herramientas locales
