@@ -1,0 +1,79 @@
+/* ==========================================================================
+   Legalix · Bespoke Law Firm — hoja de estilos
+   --------------------------------------------------------------------------
+   La maquetación usa estilos inline + atributos data-*-m como "hooks"
+   responsive. Este archivo define los estilos globales, las animaciones y
+   qué hace cada hook en cada breakpoint. Los !important son necesarios para
+   poder sobreescribir los estilos inline en móvil.
+   ========================================================================== */
+
+/* --- Reset / base ------------------------------------------------------- */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #F5F2EC;
+  font-family: 'Public Sans', system-ui, sans-serif;
+  color: #1E2836;
+}
+
+* { box-sizing: border-box; }
+
+a { color: #8C6D2F; text-decoration: none; }
+a:hover { color: #14202F; }
+
+input, select, textarea, button {
+  font-family: 'Public Sans', system-ui, sans-serif;
+}
+
+/* Los campos de formulario tienen un ancho intrínseco (~165px) y, como los
+   items de grid/flex usan min-width:auto, ese ancho impide que la columna se
+   encoja y la rejilla desborda su contenedor (p. ej. la rejilla de pago
+   2fr 1fr 1fr en una tarjeta de 640px). min-width:0 permite que se encojan. */
+input, select, textarea { min-width: 0; max-width: 100%; }
+
+/* Redes de seguridad para móvil: que nada provoque scroll horizontal ni
+   desborde por textos o medios largos. `clip` evita el scroll sin romper
+   el position:sticky de las cabeceras. */
+html, body { overflow-x: clip; }
+img, svg, video { max-width: 100%; height: auto; }
+h1, h2, h3, h4, p, span { overflow-wrap: break-word; }
+
+/* --- Animaciones -------------------------------------------------------- */
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(169, 132, 60, .45); }
+  50%      { box-shadow: 0 0 0 8px rgba(169, 132, 60, 0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* --- Hooks responsive (estado por defecto = escritorio) ----------------- */
+/* Elementos "solo móvil": ocultos hasta llegar al breakpoint. */
+[data-show-m] { display: none; }
+
+/* ==========================================================================
+   Tablet y móvil grande — ≤ 840px
+   ========================================================================== */
+@media (max-width: 840px) {
+  [data-hide-m]  { display: none !important; }             /* ocultar en móvil            */
+  [data-show-m]  { display: flex !important; }             /* mostrar en móvil            */
+  [data-stack-m] { flex-direction: column !important;      /* apilar filas flex           */
+                   align-items: stretch !important; }
+  [data-grid1-m] { grid-template-columns: 1fr !important; }/* grid a una sola columna     */
+  [data-pad-m]   { padding-left: 18px !important;           /* menos padding lateral       */
+                   padding-right: 18px !important; }
+  [data-full-m]  { width: 100% !important; }               /* sidebar del panel a ancho completo */
+  [data-scrollx-m] { overflow-x: auto !important;          /* bloques anchos: scroll horizontal  */
+                     -webkit-overflow-scrolling: touch; }
+
+  /* Evita el zoom automático de iOS al enfocar campos con texto < 16px. */
+  input, select, textarea { font-size: 16px !important; }
+}
+
+/* ==========================================================================
+   Móvil — ≤ 520px
+   ========================================================================== */
+@media (max-width: 520px) {
+  [data-pad-m] { padding-left: 15px !important; padding-right: 15px !important; }
+}

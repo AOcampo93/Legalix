@@ -1,0 +1,10 @@
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Documentación y notas (no forman parte del demo desplegable)
+*.md
+uploads/
+
+# Herramientas locales
+.claude/
